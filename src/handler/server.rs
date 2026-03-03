@@ -81,3 +81,13 @@ pub async fn delete_single_server_by_id(data: web::Data<AppState>,server_id: web
     Ok(HttpResponse::Ok().json(ans))
 }
 
+pub async fn update_server_by_id(data: web::Data<AppState>, params: (web::Path<i32>, web::Json<UpdateServiceTerminal>)) -> Result<HttpResponse, actix_web::Error> {
+    let server_id = params.0.into_inner();
+    let update_data = params.1.try_into()?;
+    let server = update_server_by_id_db(&data.db_pool, server_id, update_data).await.map_err(|e| {
+        error!("Failed to update server: {:?}", e);
+        actix_web::error::ErrorInternalServerError("Failed to update server")
+    })?;
+    Ok(HttpResponse::Ok().json(server))
+}
+

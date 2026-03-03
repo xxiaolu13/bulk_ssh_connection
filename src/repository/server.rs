@@ -1,7 +1,7 @@
 
 use sqlx::PgPool;
 use tracing::log::{error,info};
-use crate::domain::server::{CreateGroupServiceTerminal, CreateSingleServiceTerminal, ServiceTerminal};
+use crate::domain::server::{CreateGroupServiceTerminal, CreateSingleServiceTerminal, ServiceTerminal, UpdateServiceTerminal};
 use crate::utils::crypto::passwd_encryption;
 use crate::repository::servergroup::get_group_by_id_db;
 
@@ -131,4 +131,48 @@ pub async fn create_group_server_db(p0: &PgPool,server: CreateGroupServiceTermin
 pub async fn delete_single_server_by_id_db(p0: &PgPool, id: i32) -> Result<String, anyhow::Error>{
     let row = sqlx::query!("delete from servers where id=$1",id).execute(p0).await?;
     Ok(format!("Successfully deleted {:?} group", row))
+}
+
+pub async fn update_server_by_id_db(p0: &PgPool, id: i32, params: UpdateServiceTerminal) -> Result<ServiceTerminal, anyhow::Error> {
+    // 验证服务器是否存在
+    let existing_server = get_server_by_id_db(p0, id).await?;
+
+    // 如果更新 group_id，验证 group 是否存在
+    if let Some(group_id) = params.group_id {
+        let _ = get_group_by_id_db(p0, group_id).await.map_err(|e| {
+            error!("Update server but failed to fetch group by id: {:?}", e);
+            anyhow::anyhow!("Group with id {} not found", group_id)
+        })?;
+    }
+
+    // 处理密码加密
+    let password = if let Some(pw) = params.password {
+        passwd_encryption(pw)?
+    } else {
+        existing_server.password.clone()
+    };
+
+    let row = sqlx::query_as!(
+        ServiceTerminal,
+        r#"
+        UPDATE servers
+        SET name = COALESCE($1, name),
+            group_id = COALESCE($2, group_id),
+            ssh_user = COALESCE($3, ssh_user),
+            ip = COALESCE($4, ip),
+            port = COALESCE($5, port),
+            password_hash = $6
+        WHERE id = $7
+        RETURNING id, name, group_id, ssh_user, ip, port, password_hash as password
+        "#,
+        params.name,
+        params.group_id,
+        params.ssh_user,
+        params.ip,
+        params.port,
+        password,
+        id
+    ).fetch_one(p0).await?;
+
+    Ok(row)
 }

@@ -3,7 +3,7 @@ use log::error;
 use tracing::field::debug;
 use crate::db::pool::AppState;
 use crate::domain::cron_job::{CreateCronJob, UpdateCronJob};
-use crate::repository::cron_job::{get_all_cronjobs_db, get_cronjob_by_id_db,create_cronjob_db,update_cronjob_db};
+use crate::repository::cron_job::{get_all_cronjobs_db, get_cronjob_by_id_db,create_cronjob_db,update_cronjob_db, delete_cronjob_by_id_db};
 
 pub async fn get_all_cronjobs(data:web::Data<AppState>) -> Result<HttpResponse, actix_web::Error>{
     let rows = get_all_cronjobs_db(&data.db_pool).await.map_err(|e| {
@@ -38,6 +38,19 @@ pub async fn update_cronjob(data: web::Data<AppState>,job_id:web::Path<i32>,job:
         error!("Failed to update cronjob: {:?}", e);
         actix_web::error::ErrorInternalServerError("Failed to update cronjob")})?;
     Ok(HttpResponse::Ok().json(row))
+}
+
+pub async fn delete_cronjob_by_id(data: web::Data<AppState>,job_id: web::Path<i32>) -> Result<HttpResponse, actix_web::Error> {
+    let job_id = job_id.into_inner();
+    let _ = get_cronjob_by_id_db(&data.db_pool, job_id).await.map_err(|e| {
+        error!("Delete cronjob failed to fetch cronjob: {:?}", e);
+        actix_web::error::ErrorInternalServerError("Delete cronjob failed to fetch cronjob")
+    })?;
+    let ans = delete_cronjob_by_id_db(&data.db_pool, job_id).await.map_err(|e| {
+        error!("Failed to delete cronjob: {:?}", e);
+        actix_web::error::ErrorInternalServerError("Failed to delete cronjob")
+    })?;
+    Ok(HttpResponse::Ok().json(ans))
 }
 
 

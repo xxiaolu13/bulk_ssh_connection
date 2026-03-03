@@ -19,4 +19,4 @@ docker run -d \
   -c max_connections=200
 
 # 执行初始化sql
-docker exec -i pgsql psql -U postgres  < 001_init.sql
+docker exec -i postgres psql -U postgres  < ./init.sql

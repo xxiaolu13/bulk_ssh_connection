@@ -7,18 +7,30 @@ use sqlx::PgPool;
 use tracing::log::{info,warn};
 use crate::utils::crypto::*;
 use actix_web::error::{ErrorRequestTimeout,ErrorGatewayTimeout};
+use tokio::sync::Semaphore;
 use tokio::time::{Duration, timeout};
 use std::env;
 use bytes::Bytes;
 use crate::repository::cron_log::create_cron_log_db;
 use russh::client::AuthResult;
 
+// 全局SSH并发信号量
+static SSH_SEMAPHORE: once_cell::sync::Lazy<Arc<Semaphore>> =
+    once_cell::sync::Lazy::new(|| {
+        let max_concurrent_ssh: usize = env::var("MAX_CONCURRENT_SSH")
+            .unwrap_or("50".to_string())
+            .parse()
+            .unwrap_or(50);
+        info!("Max concurrent SSH connections: {}", max_concurrent_ssh);
+        Arc::new(Semaphore::new(max_concurrent_ssh))
+    });
+
 macro_rules! log_and_record {
     ($job_id:expr, $pool:expr, $server_ip:expr, $status:expr, $message:expr) => {
         if let Some(id) = $job_id {
             let job_log = CreateCronLog::new(
                 id,
-                $server_ip.to_string(),
+                Some($server_ip.to_string()),
                 $status.to_string(),
                 Some($message.to_string())
             );
@@ -97,8 +109,28 @@ pub async fn batch_server_ssh_back(job_id: Option<i32>,pool: &PgPool,msg: Messag
             let user = msg.user.clone();
             let password = msg.password.clone();
             let pool_new = pool.clone();
-            
+            let ssh_semaphore = SSH_SEMAPHORE.clone();
+
         tokio::spawn(async move{
+            // 获取信号量许可（会阻塞直到有可用许可）
+            let _permit = match ssh_semaphore.acquire().await {
+                Ok(permit) => permit,
+                Err(_) => {
+                    warn!("Failed to acquire SSH semaphore for {}", ip_port);
+                    let error_result = SshError {
+                        server: server_label.clone(),
+                        output: "Failed to acquire SSH semaphore".to_string(),
+                        exit_code: Some(1),
+                    };
+                    let back = serde_json::to_string(&error_result).unwrap_or_else(|_| {
+                        format!(r#"{{"server":"{}","error":"Failed to acquire SSH semaphore"}}"#, server_label)
+                    });
+                    let json_with_newline = format!("{}\n", back);
+                    let _ = tx.send(Ok(Bytes::from(json_with_newline))).await;
+                    return;
+                }
+            };
+
             let result = ssh_execute(
                 job_id,
                 &pool_new,
@@ -145,6 +177,7 @@ pub async fn batch_server_ssh_back(job_id: Option<i32>,pool: &PgPool,msg: Messag
                 // Channel 已关闭，通常不需要处理，或者记录日志
                 warn!("Receiver dropped");
             }
+            // permit 在这里被 drop，自动释放信号量许可
         });
     }
     drop(tx); // 关闭主线程的发送端，否则接收端永远不会结束

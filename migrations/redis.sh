@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/bin/bash
 sudo mkdir -p /var/lib/redis/data
 sudo chown -R 999:999 /var/lib/redis/data
 docker pull redis:7.2

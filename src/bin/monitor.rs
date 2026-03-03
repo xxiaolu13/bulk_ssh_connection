@@ -6,7 +6,7 @@ use std::time::Duration;
 fn main() {
     // 最简单的配置
     let builder = PrometheusBuilder::new();
-    
+
     builder
         .with_http_listener(([0, 0, 0, 0], 9000))
         .install()

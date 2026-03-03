@@ -1,78 +1,71 @@
+use anyhow::Result;
+use connect_ok::domain::scheduler::JobScheduler;
+use connect_ok::repository::cron_job::*;
+use connect_ok::scheduler::prepare::*;
 use dotenvy::dotenv;
 use log::warn;
 use sqlx::PgPool;
-use connect_ok::domain::scheduler::JobScheduler;
-use tracing::{info, debug, error};
+use std::env;
+use std::sync::Arc;
 use tokio::signal;
-use connect_ok::repository::cron_job::*;
-use connect_ok::scheduler::prepare::*;
-use anyhow::Result;
+use tokio::sync::Semaphore;
+use tracing::{debug, error, info};
 
 // 业务逻辑抽离出来
-async fn process_job(pool: &PgPool, heap: &JobScheduler, job_id: i32) -> Result<(),anyhow::Error> {
-    // heap.del_job(job_id).await?;
+async fn process_job(pool: &PgPool, heap: &JobScheduler, job_id: i32) -> Result<(), anyhow::Error> {
     info!("job {} start execute", job_id);
-    // let job_log = CreateCronLog::new(job_id, status, output);
     let msg = get_cronjob_by_id_db(pool, job_id).await?;
     match msg.group_id {
         Some(_) => {
-            batch_job_execute(Some(job_id),pool, msg.clone()).await?;
-            heap.del_job(msg.id).await?;// 任务完成 从processing移除
-        },
+            batch_job_execute(Some(job_id), pool, msg.clone()).await?;
+            heap.del_job(msg.id).await?; // 任务完成 从processing移除
+        }
         None => {
-            single_job_execute(Some(job_id),pool, msg.clone()).await?;
+            single_job_execute(Some(job_id), pool, msg.clone()).await?;
             heap.del_job(msg.id).await?;
-            // let (code,output) = single_job_execute(pool, msg.clone()).await?;
-            // let job_log = match single_job_execute(pool, msg.clone()).await{
-            //     Ok((code,output)) => {
-            //         let job_log = CreateCronLog::new(job_id, code.to_string(), Some(output));
-            //         heap.del_job(msg.id).await?;// 任务完成 从processing移除
-            //         job_log
-            //     }
-            //     _ => {
-            //         let job_log = CreateCronLog::new(job_id, "Error".into(),None);
-            //         job_log
-            //     }
-            // };
-            // let _  = create_cron_log_db(pool, job_log).await?;
         }
     }
     reload_single_job(pool, msg.id, heap.clone()).await?;
     Ok(())
 }
 
-async fn retry_process_job(pool: &PgPool,heap: &JobScheduler, job_id: i32) -> Result<()>{
-    let retry_count = sqlx::query!("select retry_count  from cronjobs where id = $1",job_id)
-        .fetch_one(pool).await    
-        .map(|row| row.retry_count)  // 提取字段
-        .unwrap_or(Some(1));  // 失败时默认值
-    if let Some(retry_count) = retry_count{
-        info!("job{} start retry",job_id);
+async fn retry_process_job(pool: &PgPool, heap: &JobScheduler, job_id: i32) -> Result<()> {
+    let retry_count = sqlx::query!("select retry_count  from cronjobs where id = $1", job_id)
+        .fetch_one(pool)
+        .await
+        .map(|row| row.retry_count) // 提取字段
+        .unwrap_or(Some(1)); // 失败时默认值
+    if let Some(retry_count) = retry_count {
+        info!("job{} start retry", job_id);
         let mut i = 0;
         while i < retry_count {
             i += 1;
-            match process_job(pool, heap, job_id).await{
+            match process_job(pool, heap, job_id).await {
                 Ok(_) => {
-                    info!("job {} retry {} times success",job_id,i); 
-                    return Ok(())
+                    info!("job {} retry {} times success", job_id, i);
+                    return Ok(());
                 }
                 _ => {
-                    error!("job {} retry {} times failed",job_id,i);
+                    error!("job {} retry {} times failed", job_id, i);
                 }
             }
             tokio::time::sleep(tokio::time::Duration::from_millis(200)).await; // 间隔200ms，这块的时间可能影响大时间的任务
             // 任务在重试机制后，如果失败，就再也不会执行了
         }
-        let _ = sqlx::query!("UPDATE cronjobs SET enabled = $1 WHERE id=$2",false,job_id).execute(pool).await;
-        error!("job {} all retry failed The job has been actively closed by the program",job_id)
-    }
-    else {
-        warn!("job {} Failed & retry count is None",job_id);
-        return Ok(())
+        // enabled 字段换成 false，关闭任务
+        let _ = update_job_enabled(pool, job_id, false).await;
+        // status 字段换成dead 证明了服务重试仍然失败
+        let _ = update_job_status(pool, job_id, JobStatus::Dead).await;
+        error!(
+            "job {} all retry failed The job has been actively closed by the program",
+            job_id
+        )
+    } else {
+        warn!("job {} Failed & retry count is None", job_id);
+        return Ok(());
     }
     Ok(())
 }
-
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
@@ -85,10 +78,26 @@ async fn main() -> Result<(), anyhow::Error> {
     let heap = JobScheduler::new().await?;
     heap.clear_all_jobs().await?; // 清空所有队列
     let reload_sec: u64 = std::env::var("RELOAD_SECS")
-        .unwrap_or("100".to_string()).parse().expect("RELOAD_SECS must be number");
+        .unwrap_or("100".to_string())
+        .parse()
+        .expect("RELOAD_SECS must be number");
     let save_sec: u64 = std::env::var("SAVE_SECS")
-        .unwrap_or("300".to_string()).parse().expect("SAVE_SECS must be number");
-    info!("Worker reloads every {} secs,Redis save {} secs", reload_sec,save_sec);
+        .unwrap_or("300".to_string())
+        .parse()
+        .expect("SAVE_SECS must be number");
+    info!(
+        "Worker reloads every {} secs,Redis save {} secs",
+        reload_sec, save_sec
+    );
+
+    let max_concurrent: usize = env::var("MAX_CONCURRENT_JOBS")
+        .unwrap_or("10".to_string())
+        .parse()
+        .unwrap_or(10);
+
+    let semaphore = Arc::new(Semaphore::new(max_concurrent));
+    info!("Max concurrent jobs: {}", max_concurrent);
+
     // 初始化加载
     let pool1 = pool.clone();
     let heap1 = heap.clone();
@@ -98,10 +107,11 @@ async fn main() -> Result<(), anyhow::Error> {
     // 定时轮询数据库
     tokio::spawn(async move {
         let mut interval = tokio::time::interval(tokio::time::Duration::from_secs(reload_sec));
-        interval.tick().await; 
+        interval.tick().await;
         loop {
             interval.tick().await;
-            match reload_job_from_sql(&pool1, heap1.clone(),save_sec).await { // save_secs 是保存时间，小于这个时间需要add heap
+            match reload_job_from_sql(&pool1, heap1.clone(), save_sec).await {
+                // save_secs 是保存时间，小于这个时间需要add heap
                 Ok(_) => info!("Reload job from sql success"),
                 Err(_) => error!("Failed to reload job from sql!!"),
             };
@@ -110,22 +120,70 @@ async fn main() -> Result<(), anyhow::Error> {
     // worker启动
     let worker_pool = pool.clone();
     let worker_heap = heap.clone();
+    let worker_semaphore = semaphore.clone();
     tokio::spawn(async move {
         loop {
             let worker_pool2 = worker_pool.clone();
-            let worker_heap2 =worker_heap.clone();
-            
+            let worker_heap2 = worker_heap.clone();
+            let worker_semaphore2 = worker_semaphore.clone();
+
             match worker_heap.get_job().await {
                 Ok(Some(job_id)) => {
-                    info!("job {} shouled run", job_id);
-                    tokio::spawn(async move{
-                        if let Err(e) = process_job(&worker_pool2, &worker_heap2, job_id).await {
-                            error!("Failed to process job {}: {:?}", job_id, e);
-                            let _ = retry_process_job(&worker_pool2,&worker_heap2, job_id).await;
-                            // 这个retry，最后有关闭enabled的逻辑，小时间的任务失败了不会自回归，关闭enable不影响，大时间的任务关闭了enable下次reload就不会带着他了
-                            // 错误后将任务继续加回。。不需要加回，小时间的重试成功自动加回，重试失败不加回，大时间的重试后等待reload加回，失败后关闭enable避免reload到
-                            // let _ = reload_single_job(&worker_pool2, job_id, worker_heap2.clone()).await;
-                            
+                    info!("job {} should run", job_id);
+                    // 先查询timeout_secs
+                    let timeout_secs = match sqlx::query!("select timeout_secs from cronjobs where id=$1", job_id)
+                        .fetch_one(&worker_pool2)
+                        .await
+                    {
+                        Ok(row) => row.timeout_secs.unwrap_or(300) as u64,
+                        Err(e) => {
+                            error!("Failed to get timeout_secs for job {}: {:?}", job_id, e);
+                            tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+                            continue;
+                        }
+                    };
+
+                    // 获取信号量许可（会阻塞直到有可用许可）
+                    let permit = match worker_semaphore2.clone().acquire_owned().await {
+                        Ok(permit) => permit,
+                        Err(e) => {
+                            error!("Failed to acquire semaphore for job {}: {:?}", job_id, e);
+                            tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+                            continue;
+                        }
+                    };
+
+                    tokio::spawn(async move {
+                        let _permit = permit; // 确保在任务结束时释放许可
+
+                        let result = tokio::time::timeout(
+                            tokio::time::Duration::from_secs(timeout_secs),
+                            process_job(&worker_pool2, &worker_heap2, job_id),
+                        )
+                        .await;
+
+                        match result {
+                            Ok(Ok(_)) => {} // process_job 成功，状态已在内部更新
+                            Ok(Err(e)) => {
+                                // process_job 返回错误
+                                error!("Failed to process job {}: {:?}", job_id, e);
+                                let _ = tokio::time::timeout(
+                                    tokio::time::Duration::from_secs(timeout_secs),
+                                    retry_process_job(&worker_pool2, &worker_heap2, job_id),
+                                )
+                                .await;
+                            }
+                            Err(_) => {
+                                // 超时
+                                error!("job {} timed out after {} secs", job_id, timeout_secs);
+                                let _ = update_job_status(&worker_pool2, job_id, JobStatus::Failed)
+                                    .await;
+                                let _ = tokio::time::timeout(
+                                    tokio::time::Duration::from_secs(timeout_secs),
+                                    retry_process_job(&worker_pool2, &worker_heap2, job_id),
+                                )
+                                .await;
+                            }
                         }
                     });
                 }

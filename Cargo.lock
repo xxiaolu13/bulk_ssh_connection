@@ -496,6 +496,7 @@ dependencies = [
  "log",
  "metrics",
  "metrics-exporter-prometheus",
+ "once_cell",
  "redis",
  "russh",
  "serde",
