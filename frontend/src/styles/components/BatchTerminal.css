@@ -1,0 +1,488 @@
+/* 批量终端页面样式 - 统一现代设计 */
+.batch-terminal-page {
+  padding: 0;
+}
+
+.batch-terminal-content {
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+.batch-terminal-main {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+/* 服务器选择卡片 */
+.server-selector-card {
+  width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all var(--transition-normal) ease;
+}
+
+.server-selector-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.server-selector-card .arco-card-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.server-selector-content {
+  flex: 1;
+  overflow: auto;
+  padding: 4px 0;
+}
+
+.group-selector {
+  margin-bottom: 16px;
+}
+
+.selector-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.server-select-all {
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  margin-bottom: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.server-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.server-item {
+  padding: 8px 12px;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast) ease;
+}
+
+.server-item:hover {
+  background: var(--bg-secondary);
+}
+
+.server-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.server-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.server-detail {
+  display: flex;
+  gap: 6px;
+}
+
+/* 右侧面板 */
+.terminal-right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* 命令输入卡片 */
+.command-input-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal) ease;
+}
+
+.command-input-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.command-input-card .arco-card-body {
+  padding: 20px;
+}
+
+.quick-commands {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.command-input-card .arco-textarea {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+}
+
+.command-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.command-actions .arco-btn-primary {
+  min-width: 140px;
+  height: 44px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(22, 93, 255, 0.3);
+  transition: all var(--transition-normal) ease;
+}
+
+.command-actions .arco-btn-primary:hover:not(.arco-btn-disabled) {
+  box-shadow: 0 6px 20px rgba(22, 93, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.command-actions .arco-btn-primary:active:not(.arco-btn-disabled) {
+  transform: translateY(0);
+}
+
+/* 执行按钮特别样式 */
+.command-actions .execute-btn {
+  background: linear-gradient(135deg, #165dff 0%, #4d79ff 100%);
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.command-actions .execute-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.command-actions .execute-btn:hover::before {
+  left: 100%;
+}
+
+[data-theme='dark'] .command-actions .execute-btn {
+  background: linear-gradient(135deg, #4daaff 0%, #6cb8ff 100%);
+}
+
+.command-tips {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+.tip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tip-item kbd {
+  padding: 2px 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-family: monospace;
+}
+
+/* 结果卡片 */
+.results-card {
+  flex: 1;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all var(--transition-normal) ease;
+}
+
+.results-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.results-card .arco-card-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 20px;
+}
+
+.results-card .arco-card-body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+/* 批量终端网格 */
+.batch-terminal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 16px;
+}
+
+.batch-terminal-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.batch-terminal-header {
+  padding: 12px 16px;
+  border-bottom: 1px/* solid var(--border-color) */;
+  background: var(--bg-secondary);
+  font-weight: 500;
+}
+
+.server-ip {
+  font-family: 'Fira Code', 'Consolas', monospace;
+}
+
+/* 终端输出区域 - 修复亮色模式黑框问题 */
+/* 使用变量支持主题切换 */
+:root {
+  --terminal-bg-light: #f8f9fa;
+  --terminal-bg-dark: #0d1117;
+  --terminal-text-light: #374151;
+  --terminal-text-dark: #c9d1d9;
+}
+
+[data-theme='light'] .batch-terminal-content,
+[data-theme='light'] .tab-terminal-content pre {
+  background: var(--terminal-bg-light);
+  color: var(--terminal-text-light);
+}
+
+[data-theme='dark'] .batch-terminal-content,
+[data-theme='dark'] .tab-terminal-content pre {
+  background: var(--terminal-bg-dark);
+  color: var(--terminal-text-dark);
+}
+
+/* 终端内容基础样式 */
+.batch-terminal-content {
+  flex: 1;
+  min-height: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 12px;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+}
+
+.batch-terminal-content.success {
+  border-left: 3px solid var(--success-color);
+}
+
+.batch-terminal-content.error {
+  border-left: 3px solid var(--danger-color);
+}
+
+.batch-terminal-content pre {
+  margin: 0;
+}
+
+.batch-terminal-content .loading-text {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* 标签页结果 */
+.results-tabs {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.results-tabs .arco-tabs-nav {
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 16px 0;
+}
+
+.results-tabs .arco-tabs-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.results-tabs .arco-tabs-pane {
+  height: 100%;
+}
+
+.tab-terminal-content {
+  height: 100%;
+  overflow: auto;
+}
+
+.tab-terminal-content pre {
+  padding: 16px;
+  margin: 0;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 100%;
+  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+}
+
+.tab-terminal-content pre.success {
+  border-left: 3px solid var(--success-color);
+}
+
+.tab-terminal-content pre.error {
+  border-left: 3px solid var(--danger-color);
+}
+
+.tab-terminal-content pre .loading-text {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* 命令历史列表 */
+.command-history-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+}
+
+.history-item:hover {
+  background: var(--bg-secondary);
+}
+
+.history-command {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+
+.history-time {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .server-selector-card {
+    width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .batch-terminal-main {
+    flex-direction: column;
+  }
+
+  .server-selector-card {
+    width: 100%;
+    height: 300px;
+  }
+
+  .batch-terminal-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .batch-terminal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .terminal-right-panel {
+    gap: 12px;
+  }
+
+  .command-input-card .arco-card-body {
+    padding: 16px;
+  }
+
+  .quick-commands {
+    overflow-x: auto;
+  }
+}
+
+/* 深色主题 */
+[data-theme='dark'] .server-selector-card,
+[data-theme='dark'] .command-input-card,
+[data-theme='dark'] .results-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-item:hover {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .server-select-all {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .selector-label {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .server-name {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .history-command {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .history-time {
+  color: var(--text-tertiary);
+}
+
+[data-theme='dark'] .history-item:hover {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .command-tips {
+  color: var(--text-tertiary);
+}
+
+[data-theme='dark'] .server-selector-card:hover,
+[data-theme='dark'] .command-input-card:hover,
+[data-theme='dark'] .results-card:hover {
+  box-shadow: var(--shadow-md);
+}

@@ -60,9 +60,9 @@ CREATE TABLE IF NOT EXISTS cronjobs (
     enabled          boolean      DEFAULT true NOT NULL,
 
     -- 超时与重试 (Phase 1.3)
-    timeout_secs     integer      DEFAULT 10,
-    retry_count      integer      DEFAULT 0,     -- 最大重试次数
-    current_retry    integer      DEFAULT 0,     -- 当前已重试次数
+    timeout_secs     integer      DEFAULT 10 NOT NULL,
+    retry_count      integer      DEFAULT 0  NOT NULL,     -- 最大重试次数
+    current_retry    integer      DEFAULT 0  NOT NULL,     -- 当前已重试次数
 
     -- 时间线
     last_executed_at timestamp with time zone,

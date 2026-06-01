@@ -1,62 +1,9 @@
-use std::cmp::Reverse;
-use std::collections::BinaryHeap;
-use std::sync::{Arc, Mutex};
-use chrono::{DateTime, Utc};
-use std::cmp::Ordering;
-use anyhow::anyhow;
+use chrono::Utc;
 use redis::{Client, AsyncCommands, Script};
 use std::env;
 use tracing::info;
 
 const ACQUIRE_JOB_SCRIPT: &str = include_str!("../script/acquire_job.lua");
-#[derive(Debug,Eq,PartialEq,PartialOrd)]
-pub struct CronWorker {
-    pub next_execute_at: DateTime<Utc>,
-    pub cronjob_id: i32
-}
-pub struct SchedulerInner{ // 小顶堆
-    heap: BinaryHeap<Reverse<CronWorker>>
-}
-pub struct Scheduler{
-    inner: Arc<Mutex<SchedulerInner>>,
-}
-impl Ord for CronWorker {
-    fn cmp(&self, other: &Self) -> Ordering {
-        self.next_execute_at.cmp(&other.next_execute_at)
-    }
-}
-impl CronWorker{
-    pub fn new(next_execute_at: DateTime<Utc>, cronjob_id: i32) -> Self{
-        CronWorker{
-            next_execute_at,
-            cronjob_id
-        }
-    }
-}
-impl Scheduler{
-    pub fn new() -> Self{
-        Scheduler{
-            inner: Arc::new(Mutex::new(
-                SchedulerInner{
-                    heap: BinaryHeap::new(),
-                }
-            ))
-        }
-    }
-    pub fn push(&self, worker: CronWorker) -> Result<(),anyhow::Error> {
-        let mut lock = self.inner.lock().map_err(|e| anyhow!(e.to_string()))?;
-        Ok(lock.heap.push(Reverse(worker)))
-    }
-    pub fn pop(&self) -> Result<Option<Reverse<CronWorker>>, anyhow::Error> {
-        let lock = self.inner.lock();
-        match lock{
-            Ok(mut worker) => {
-                Ok(worker.heap.pop())
-            }
-            _ => Err(anyhow::Error::msg("can't get mutex lock"))
-        }
-    }
-}
 
 #[derive(Debug,Clone)]
 pub struct JobScheduler {

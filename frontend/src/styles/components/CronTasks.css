@@ -1,0 +1,101 @@
+/* Cron 任务页面样式 */
+.cron-tasks-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cron-page {
+  padding: 0;
+}
+
+.cron-tasks-page .arco-row {
+  margin-bottom: 16px;
+}
+
+.cron-tasks-page .arco-card {
+  border-radius: 8px;
+  border: 1px solid var(--border-separator);
+  box-shadow: var(--shadow-light);
+}
+
+.cron-tasks-page .arco-card .arco-card-body {
+  padding: 16px;
+}
+
+.cron-tasks-page .arco-statistic {
+  padding: 0;
+}
+
+.cron-expression-helper {
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.cron-presets {
+  margin-bottom: 16px;
+}
+
+.preset-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.cron-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-label {
+  width: 120px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.cron-current {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-separator);
+}
+
+.current-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.current-desc {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* 深色主题 */
+[data-theme='dark'] .cron-expression-helper {
+  background: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .preset-label,
+[data-theme='dark'] .detail-label,
+[data-theme='dark'] .current-label {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .current-cron-desc {
+  color: var(--text-tertiary);
+}
+
+[data-theme='dark'] .cron-current {
+  border-top-color: var(--border-separator);
+}

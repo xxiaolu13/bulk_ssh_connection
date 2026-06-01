@@ -1,0 +1,329 @@
+/**
+ * 终端组件美化
+ * 现代化的终端设计，包含命令输出、状态指示等
+ */
+
+/* ========== 终端容器 ========== */
+.terminal-container {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal) ease;
+}
+
+.terminal-container:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========== 终端头部 ========== */
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-3) var(--spacing-4);
+  background: #2d2d2d;
+  border-bottom: 1px solid #333;
+}
+
+.terminal-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 14px;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.terminal-title-icon {
+  color: var(--primary-color);
+  font-size: 16px;
+}
+
+.terminal-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: 12px;
+  color: #ccc;
+}
+
+.terminal-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+}
+
+.terminal-status-dot.online {
+  background: var(--success-color);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.terminal-status-dot.offline {
+  background: var(--danger-color);
+}
+
+.terminal-status-dot.connecting {
+  background: var(--warning-color);
+  animation: statusPulse 1s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ========== 终端内容 ========== */
+.terminal-content {
+  padding: var(--spacing-4);
+  min-height: 200px;
+  max-height: 500px;
+  overflow-y: auto;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ========== 终端命令行 ========== */
+.terminal-prompt {
+  color: #4ec9b0;
+  font-weight: 600;
+}
+
+.terminal-command {
+  color: #fff;
+}
+
+/* ========== 终端输出 ========== */
+.terminal-output {
+  color: #d4d4d4;
+}
+
+.terminal-output.error {
+  color: var(--danger-color);
+}
+
+.terminal-output.success {
+  color: var(--success-color);
+}
+
+.terminal-output.warning {
+  color: var(--warning-color);
+}
+
+.terminal-output.info {
+  color: var(--info-color);
+}
+
+/* ========== 终端输入栏 ========== */
+.terminal-input-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: #2d2d2d;
+  border-top: 1px solid #333;
+}
+
+.terminal-input-prompt {
+  color: #4ec9b0;
+  font-weight: 600;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 13px;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 13px;
+  padding: 0;
+  caret-color: #4ec9b0;
+}
+
+.terminal-input:focus {
+  outline: none;
+}
+
+.terminal-input::placeholder {
+  color: #666;
+}
+
+/* ========== 终端快捷键提示 ========== */
+.terminal-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: #888;
+}
+
+.terminal-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.terminal-shortcut-key {
+  padding: var(--spacing-1) var(--spacing-2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: #ccc;
+}
+
+/* ========== 终端操作按钮 ========== */
+.terminal-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.terminal-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast) ease;
+  cursor: pointer;
+}
+
+.terminal-action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.terminal-action-btn.danger:hover {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+  color: #fff;
+}
+
+/* ========== 终端连接状态 ========== */
+.terminal-connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.terminal-connection-status.connecting {
+  background: rgba(255, 125, 0, 0.15);
+  color: var(--warning-color);
+}
+
+.terminal-connection-status.connected {
+  background: rgba(0, 180, 42, 0.15);
+  color: var(--success-color);
+}
+
+.terminal-connection-status.disconnected {
+  background: rgba(245, 63, 63, 0.15);
+  color: var(--danger-color);
+}
+
+/* ========== xterm.js 自定义样式 ========== */
+.xterm .xterm-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: var(--radius-full);
+}
+
+.xterm .xterm-screen {
+  cursor: text;
+}
+
+/* ========== 深色模式 ========== */
+[data-theme='dark'] .terminal-container {
+  background: #0d1117;
+  border-color: #1e293b;
+}
+
+[data-theme='dark'] .terminal-header {
+  background: #1e293b;
+  border-bottom-color: #1e293b;
+}
+
+[data-theme='dark'] .terminal-content {
+  background: #0d1117;
+  color: #c9d1d9;
+}
+
+[data-theme='dark'] .terminal-input-bar {
+  background: #1e293b;
+  border-top-color: #1e293b;
+}
+
+[data-theme='dark'] .terminal-shortcuts {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .terminal-shortcut-key {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #a5b4fc;
+}
+
+[data-theme='dark'] .terminal-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #a5b4fc;
+}
+
+[data-theme='dark'] .terminal-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .terminal-header {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+
+  .terminal-content {
+    padding: var(--spacing-3);
+    font-size: 12px;
+  }
+
+  .terminal-input-bar {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+}

@@ -1,0 +1,100 @@
+/* Cron 日志页面样式 */
+.cron-logs-page {
+  padding: 0;
+}
+
+/* 日志详情内容 */
+.log-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.log-info-section {
+  background: var(--bg-fill);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 24px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.log-output-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.log-output {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 16px;
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 500px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* 深色主题 */
+[data-theme='dark'] .log-detail-content {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .log-info-section {
+  background: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .info-label {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .info-value {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .section-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .log-output {
+  background: #0d1117;
+  color: #c9d1d9;
+}

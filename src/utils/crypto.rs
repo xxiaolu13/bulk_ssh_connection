@@ -1,12 +1,10 @@
-
 use aes_gcm::{
+    Aes256Gcm, Key,
     aead::{Aead, AeadCore, KeyInit, OsRng},
-    Aes256Gcm,Key
 };
 use anyhow::{Context, Result};
-const MASTER_KEY:&[u8; 32] = b"MYSSHwAKR3!EPEM*YeID*TL9t*35Ei!O";
-pub fn passwd_encryption(plain_text: String)->Result<String>{
-
+const MASTER_KEY: &[u8; 32] = b"MYSSHwAKR3!EPEM*YeID*TL9t*35Ei!O";
+pub fn passwd_encryption(plain_text: String) -> Result<String> {
     let key = Key::<Aes256Gcm>::from_slice(MASTER_KEY);
 
     let cipher = Aes256Gcm::new(&key);
@@ -15,12 +13,14 @@ pub fn passwd_encryption(plain_text: String)->Result<String>{
         .encrypt(&nonce, plain_text.as_bytes())
         .map_err(|e| anyhow::anyhow!("Encryption failed: {}", e))?;
 
-    Ok(format!("{}.{}", hex::encode(nonce), hex::encode(ciphertext)))
+    Ok(format!(
+        "{}.{}",
+        hex::encode(nonce),
+        hex::encode(ciphertext)
+    ))
 }
 
-
-pub fn passwd_decrypt(stored_str:String)->Result<String>{
-
+pub fn passwd_decrypt(stored_str: String) -> Result<String> {
     let key = Key::<Aes256Gcm>::from_slice(MASTER_KEY);
     let cipher = Aes256Gcm::new(&key);
     let parts: Vec<&str> = stored_str.split('.').collect();

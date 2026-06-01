@@ -1,0 +1,605 @@
+/* 全局主题样式 - 基于 Arco Design Pro 设计规范 */
+
+:root {
+  /* Arco Design 主题色系 */
+  --primary-color: rgb(var(--arcoblue-6));
+  --success-color: rgb(var(--green-6));
+  --warning-color: rgb(var(--orange-6));
+  --danger-color: rgb(var(--red-6));
+
+  /* 主题模式变量 */
+  --theme-mode: light;
+
+  /* 文字颜色 */
+  --text-primary: var(--color-text-1);
+  --text-secondary: var(--color-text-2);
+  --text-tertiary: var(--color-text-3);
+  --text-placeholder: var(--color-text-4);
+
+  /* 背景色 */
+  --bg-color: var(--color-bg-1);
+  --bg-secondary: var(--color-bg-2);
+  --bg-tertiary: var(--color-bg-3);
+  --bg-fill: var(--color-fill-2);
+
+  /* 边框色 */
+  --border-color: var(--color-border-1);
+  --border-separator: var(--color-border-2);
+  --border-strong: var(--color-border-3);
+
+  /* 阴影 */
+  --shadow-light: 0 0 10px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* 圆角 */
+  --radius-small: 2px;
+  --radius-medium: 4px;
+  --radius-large: 8px;
+
+  /* 间距 */
+  --spacing-tiny: 4px;
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+  --spacing-huge: 32px;
+
+  /* 过渡 */
+  --transition-fast: 0.15s;
+  --transition-normal: 0.2s;
+  --transition-slow: 0.3s;
+}
+
+/* 基础重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+  background-color: var(--color-bg-2);
+  font-size: 14px;
+  line-height: 1.5715;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-4);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 应用布局 */
+.app-layout {
+  height: 100vh;
+  display: flex;
+}
+
+/* 侧边栏 */
+.app-sider {
+  background: linear-gradient(180deg, #0f1225 0%, #1c2140 100%);
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: width var(--transition-normal);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-sider .arco-menu {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex: 1;
+}
+
+.app-sider .arco-menu-item {
+  color: rgba(255, 255, 255, 0.65);
+  margin: 4px 12px;
+  border-radius: var(--radius-medium);
+  transition: all var(--transition-fast);
+}
+
+.app-sider .arco-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.app-sider .arco-menu-item-selected {
+  background: var(--primary-color) !important;
+  color: #fff !important;
+  box-shadow: var(--shadow-light);
+}
+
+.app-sider .arco-menu-icon {
+  color: inherit;
+}
+
+/* Logo 区域 */
+.app-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+}
+
+.app-logo h4 {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* 侧边栏底部信息 */
+.app-sider-footer {
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.version-info {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+/* 顶部导航栏 */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid var(--border-separator);
+  padding: 0 var(--spacing-large);
+  height: 64px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* 主内容区域 */
+.app-content {
+  margin: var(--spacing-large);
+  padding: var(--spacing-large);
+  background: var(--bg-color);
+  border-radius: var(--radius-large);
+  overflow: auto;
+  box-shadow: var(--shadow-light);
+  min-height: calc(100vh - 96px - 2 * var(--spacing-large));
+}
+
+/* 页面头部 */
+.page-header {
+  margin-bottom: var(--spacing-large);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-medium);
+  border-bottom: 1px solid var(--border-separator);
+}
+
+.page-header h4 {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* 过滤栏 */
+.filter-bar {
+  display: flex;
+  gap: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+  flex-wrap: wrap;
+  align-items: center;
+  padding: var(--spacing-medium);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-medium);
+}
+
+/* 表格样式优化 */
+.arco-table {
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+}
+
+.arco-table-th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.arco-table-tr:hover {
+  background: var(--bg-fill);
+}
+
+.arco-table-cell {
+  padding: 12px var(--spacing-medium);
+}
+
+/* 表单样式 */
+.modal-form .arco-form-item {
+  margin-bottom: var(--spacing-large);
+}
+
+.modal-form .arco-form-label-item-left {
+  font-weight: 500;
+}
+
+/* 卡片样式 */
+.arco-card {
+  border-radius: var(--radius-large);
+  border: 1px solid var(--border-separator);
+  box-shadow: var(--shadow-light);
+  transition: all var(--transition-normal);
+}
+
+.arco-card:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.arco-card-header {
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: var(--spacing-medium) var(--spacing-large);
+  border-bottom: 1px solid var(--border-separator);
+}
+
+.arco-card-body {
+  padding: var(--spacing-large);
+}
+
+/* 按钮样式增强 */
+.arco-btn {
+  border-radius: var(--radius-small);
+  transition: all var(--transition-fast);
+}
+
+.arco-btn-primary {
+  box-shadow: 0 2px 6px rgba(var(--arcoblue-6), 0.3);
+}
+
+.arco-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(var(--arcoblue-6), 0.4);
+}
+
+.arco-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* 标签样式 */
+.arco-tag {
+  border-radius: var(--radius-small);
+  font-weight: 500;
+}
+
+/* 终端样式 */
+.terminal-container {
+  background: #1e1e1e;
+  padding: 10px;
+  border-radius: var(--radius-medium);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.xterm {
+  height: 100%;
+}
+
+/* 批量终端 */
+.batch-terminal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-medium);
+}
+
+.batch-terminal-item {
+  border: 1px solid var(--border-separator);
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+  transition: all var(--transition-normal);
+}
+
+.batch-terminal-item:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.batch-terminal-header {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-bottom: 1px solid var(--border-separator);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.batch-terminal-content {
+  background: #1e1e1e;
+  min-height: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: var(--spacing-small);
+  color: #d4d4d4;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.batch-terminal-content.success {
+  border-left: 3px solid var(--success-color);
+}
+
+.batch-terminal-content.error {
+  border-left: 3px solid var(--danger-color);
+}
+
+/* 模态框样式 */
+.arco-modal {
+  border-radius: var(--radius-large);
+  overflow: hidden;
+}
+
+.arco-modal-header {
+  padding: var(--spacing-medium) var(--spacing-large);
+  border-bottom: 1px solid var(--border-separator);
+}
+
+.arco-modal-body {
+  padding: var(--spacing-large);
+}
+
+.arco-modal-footer {
+  padding: var(--spacing-medium) var(--spacing-large);
+  border-top: 1px solid var(--border-separator);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: var(--spacing-medium);
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.empty-state-description {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin-top: var(--spacing-small);
+}
+
+/* 代码块 */
+.code-block {
+  background: var(--bg-tertiary);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--radius-small);
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  border: 1px solid var(--border-separator);
+  overflow-x: auto;
+}
+
+/* 状态标签 */
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-small);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-tag-success {
+  color: var(--success-color);
+  background: rgba(var(--green-1), 0.1);
+}
+
+.status-tag-error {
+  color: var(--danger-color);
+  background: rgba(var(--red-1), 0.1);
+}
+
+.status-tag-warning {
+  color: var(--warning-color);
+  background: rgba(var(--orange-1), 0.1);
+}
+
+.status-tag-info {
+  color: var(--primary-color);
+  background: rgba(var(--arcoblue-1), 0.1);
+}
+
+/* 加载动画 */
+.loading-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.loading-text {
+  margin-left: var(--spacing-small);
+  color: var(--text-tertiary);
+}
+
+/* 面包屑样式 */
+.arco-breadcrumb {
+  color: var(--text-secondary);
+}
+
+.arco-breadcrumb-item a {
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.arco-breadcrumb-item a:hover {
+  color: var(--primary-color);
+}
+
+.arco-breadcrumb-item-separator {
+  color: var(--text-tertiary);
+  margin: 0 var(--spacing-tiny);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 var(--spacing-medium);
+  }
+
+  .app-content {
+    margin: var(--spacing-medium);
+    padding: var(--spacing-medium);
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-small);
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .batch-terminal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .app-header,
+  .app-sider {
+    display: none;
+  }
+
+  .app-content {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .arco-btn:not(.arco-btn-icon-only) {
+    display: none;
+  }
+}
+
+/* 深色主题 */
+[data-theme='dark'] {
+  --theme-mode: dark;
+
+  --primary-color: #3b82f6;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+
+  --bg-color: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-fill: #475569;
+
+  --border-color: #334155;
+  --border-separator: #475569;
+  --border-strong: #64748b;
+
+  --shadow-light: 0 0 10px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='dark'] body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .app-content {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .page-header {
+  border-bottom-color: var(--border-separator);
+}
+
+[data-theme='dark'] .filter-bar {
+  background: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .arco-card {
+  background: var(--bg-secondary);
+  border-color: var(--border-separator);
+}
+
+[data-theme='dark'] .arco-card-header {
+  background: var(--bg-tertiary);
+  border-bottom-color: var(--border-separator);
+}
+
+[data-theme='dark'] .batch-terminal-content {
+  background: #0d1117;
+  color: #c9d1d9;
+}
+
+[data-theme='dark'] .code-block {
+  background: var(--bg-tertiary);
+  border-color: var(--border-separator);
+}

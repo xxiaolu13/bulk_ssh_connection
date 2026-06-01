@@ -1,0 +1,252 @@
+/**
+ * 页面头部组件美化
+ * 现代化的页面头部设计，包含面包屑、标题、描述等
+ */
+
+/* ========== 页面头部容器 ========== */
+.page-header-enhanced {
+  padding: 0;
+  margin-bottom: var(--spacing-6);
+}
+
+.page-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  padding: var(--spacing-5);
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal) ease;
+}
+
+.page-header-top:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+/* ========== 标题区域 ========== */
+.page-header-title-section {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ========== 面包屑 ========== */
+.page-breadcrumb {
+  margin-bottom: var(--spacing-3);
+}
+
+.page-breadcrumb .arco-breadcrumb-item-link {
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast) ease;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-md);
+}
+
+.page-breadcrumb .arco-breadcrumb-item-link:hover {
+  color: var(--primary-color);
+  background: var(--primary-light);
+}
+
+.page-breadcrumb .arco-breadcrumb-item-separator {
+  color: var(--text-tertiary);
+  margin: 0 var(--spacing-2);
+}
+
+/* ========== 标题 ========== */
+.page-header-title-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.page-header-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  line-height: 1.2;
+}
+
+.page-header-title::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--primary-color) 0%, #4d79ff 100%);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-colored);
+}
+
+.page-header-title-content {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* ========== 描述 ========== */
+.page-header-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding-left: var(--spacing-6);
+  margin-left: calc(-1 * var(--spacing-6));
+}
+
+/* ========== 额外内容区域 ========== */
+.page-header-extra {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex-shrink: 0;
+}
+
+/* ========== 页面头部变体 ========== */
+
+/* 紧凑型 */
+.page-header-enhanced.compact .page-header-top {
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.page-header-enhanced.compact .page-header-title {
+  font-size: 20px;
+}
+
+.page-header-enhanced.compact .page-header-title::before {
+  height: 24px;
+}
+
+.page-header-enhanced.compact .page-header-title-content {
+  font-size: 20px;
+}
+
+/* 无边框型 */
+.page-header-enhanced.borderless .page-header-top {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.page-header-enhanced.borderless .page-header-description {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* ========== 操作按钮组 ========== */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.header-actions .arco-btn {
+  height: 36px;
+  padding: 0 var(--spacing-4);
+}
+
+.header-actions .arco-btn-icon-only {
+  width: 36px;
+  height: 36px;
+}
+
+/* ========== 图标装饰 ========== */
+.page-header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-right: var(--spacing-4);
+  box-shadow: var(--shadow-colored);
+  transition: all var(--transition-fast) ease;
+}
+
+.page-header-icon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ========== 徽章 ========== */
+.page-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-3);
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: var(--spacing-3);
+  border: 1px solid var(--primary-color);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .page-header-top {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--spacing-4);
+    gap: var(--spacing-4);
+  }
+
+  .page-header-title {
+    font-size: 20px;
+  }
+
+  .page-header-title::before {
+    height: 24px;
+  }
+
+  .page-header-title-content {
+    font-size: 20px;
+  }
+
+  .page-header-description {
+    font-size: 13px;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .page-header-extra {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+/* ========== 深色模式 ========== */
+[data-theme='dark'] .page-header-top {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .page-header-top:hover {
+  border-color: var(--border-hover);
+}
+
+[data-theme='dark'] .page-header-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .page-header-title-content {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .page-header-description {
+  color: var(--text-secondary);
+}

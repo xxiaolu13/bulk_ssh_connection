@@ -1,0 +1,331 @@
+/**
+ * 筛选栏组件样式 - 现代化设计
+ */
+
+/* ========== 增强版筛选栏 ========== */
+.filterbar-enhanced {
+  margin-bottom: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal) ease;
+}
+
+.filterbar-enhanced:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.filterbar-enhanced.compact {
+  margin-bottom: 12px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ========== 筛选栏内容容器 ========== */
+.filterbar-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+/* ========== 筛选栏搜索框 ========== */
+.filterbar-search {
+  flex-shrink: 0;
+  min-width: 280px;
+}
+
+.filterbar-search .arco-input-wrapper {
+  min-width: 280px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  transition: all var(--transition-fast) ease;
+}
+
+.filterbar-search .arco-input-wrapper:focus-within {
+  border-color: var(--primary-color);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.filterbar-search .arco-input-wrapper input {
+  font-size: 14px;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.filterbar-search .arco-input-wrapper input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.filterbar-search .arco-input-prefix-icon {
+  color: var(--text-tertiary);
+  font-size: 16px;
+}
+
+.filterbar-search .arco-input-suffix-icon {
+  color: var(--text-tertiary);
+  font-size: 16px;
+}
+
+.filterbar-search .arco-input-suffix-icon:hover {
+  color: var(--primary-color);
+}
+
+/* ========== 筛选栏筛选项 ========== */
+.filterbar-filters {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+.filterbar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.filterbar-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.filterbar-item .arco-input {
+  width: 180px;
+}
+
+.filterbar-item .arco-input-wrapper {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  transition: all var(--transition-fast) ease;
+}
+
+.filterbar-item .arco-input-wrapper:focus-within {
+  border-color: var(--primary-color);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.filterbar-item .arco-input-wrapper input {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.filterbar-item .arco-select {
+  width: 180px;
+}
+
+.filterbar-item .arco-select-view {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  transition: all var(--transition-fast) ease;
+}
+
+.filterbar-item .arco-select-view:hover {
+  border-color: var(--primary-color);
+}
+
+.filterbar-item .arco-select-view:focus-within {
+  border-color: var(--primary-color);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.filterbar-item .arco-select-view-value {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.filterbar-item .arco-select-view-placeholder {
+  color: var(--text-placeholder);
+  font-size: 14px;
+}
+
+/* ========== 筛选栏高级筛选开关 ========== */
+.filterbar-advanced-toggle {
+  margin-left: auto;
+}
+
+.filterbar-advanced-toggle .arco-btn {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast) ease;
+}
+
+.filterbar-advanced-toggle .arco-btn:hover {
+  color: var(--primary-color);
+  background: var(--bg-hover);
+}
+
+/* ========== 筛选栏高级筛选内容 ========== */
+.filterbar-advanced-content {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ========== 筛选栏额外操作 ========== */
+.filterbar-extra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========== 日期选择器 ========== */
+.filterbar-item .arco-picker {
+  width: 280px;
+}
+
+.filterbar-item .arco-picker-wrapper {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  transition: all var(--transition-fast) ease;
+}
+
+.filterbar-item .arco-picker-wrapper:focus-within {
+  border-color: var(--primary-color);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .filterbar-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterbar-search {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .filterbar-search .arco-input-wrapper {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .filterbar-filters {
+    width: 100%;
+  }
+
+  .filterbar-item {
+    width: 100%;
+  }
+
+  .filterbar-item .arco-input {
+    width: 100%;
+  }
+
+  .filterbar-item .arco.输入 {
+    width: 100%;
+  }
+
+  .filterbar-item .arco-picker {
+    width: 100%;
+  }
+
+  .filterbar-advanced-toggle {
+    margin-left: 0;
+    align-self: flex-start;
+  }
+
+  .filterbar-extra {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ========== 深色模式适配 ========== */
+[data-theme='dark'] .filterbar-enhanced {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .filterbar-enhanced:hover {
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme='dark'] .filterbar-search .arco-input-wrapper {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .filterbar-search .arco-input-wrapper:focus-within {
+  background: var(--bg-card);
+  border-color: var(--primary-color);
+}
+
+[data-theme='dark'] .filterbar-search .arco-input-wrapper input {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .filterbar-search .arco-input-wrapper input::placeholder {
+  color: var(--text-placeholder);
+}
+
+[data-theme='dark'] .filterbar-item .arco-input-wrapper {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .filterbar-item .arco-input-wrapper:focus-within {
+  background: var(--bg-card);
+  border-color: var(--primary-color);
+}
+
+[data-theme='dark'] .filterbar-item .arco-input-wrapper input {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .filterbar-item .arco-select-view {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .filterbar-item .arco-select-view:focus-within {
+  background: var(--bg-card);
+  border-color: var(--primary-color);
+}
+
+[data-theme='dark'] .filterbar-item .arco-select-view-value {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .filterbar-item .arco-select-view-placeholder {
+  color: var(--text-placeholder);
+}
+
+[data-theme='dark'] .filterbar-item .arco-picker-wrapper {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .filterbar-item .arco-picker-wrapper:focus-within {
+  background: var(--bg-card);
+  border-color: var(--primary-color);
+}
+
+[data-theme='dark'] .filterbar-advanced-toggle .arco-btn:hover {
+  background: var(--bg-hover);
+}
+
+[data-theme='dark'] .filterbar-advanced-content {
+  border-top-color: var(--border-color);
+}
+
+[data-theme='dark'] .filterbar-label {
+  color: var(--text-secondary);
+}

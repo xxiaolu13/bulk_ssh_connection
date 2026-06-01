@@ -1,0 +1,453 @@
+/**
+ * 表格组件美化
+ * 现代化的表格设计，包含斑马纹、悬停效果、状态标签等
+ */
+
+/* ========== 基础表格 ========== */
+.arco-table {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========== 表格头部 ========== */
+.arco-table-th {
+  background: var(--bg-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: var(--spacing-4) var(--spacing-4);
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.arco-table-th:hover {
+  background: var(--bg-tertiary);
+}
+
+/* 表格排序图标 */
+.arco-table-th-icon-sort {
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-table-th-icon-sort:hover {
+  color: var(--primary-color);
+}
+
+.arco-table-th-icon-sort-active {
+  color: var(--primary-color) !important;
+}
+
+/* ========== 表格单元格 ========== */
+.arco-table-td {
+  padding: var(--spacing-4) var(--spacing-4);
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition-fast) ease;
+}
+
+/* ========== 表格行 ========== */
+.arco-table-tr {
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-table-tr:hover {
+  background: var(--bg-hover);
+  transform: scale(1.002);
+}
+
+/* 表格斑马纹 */
+.arco-table-tr.arco-table-tr-striped {
+  background: var(--bg-page);
+}
+
+.arco-table-tr.arco-table-tr-striped:hover {
+  background: var(--bg-hover);
+}
+
+/* 表格选中状态 */
+.arco-table-tr.arco-table-tr-checked {
+  background: var(--primary-light);
+}
+
+.arco-table-tr.arco-table-tr-checked:hover {
+  background: var(--primary-lighter);
+}
+
+/* ========== 表格操作列 ========== */
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.table-action-btn {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast) ease;
+}
+
+.table-action-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ========== 状态标签 ========== */
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: 4px var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all var(--transition-fast) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.status-tag::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: currentColor;
+}
+
+.status-tag-success {
+  background: var(--success-light);
+  color: var(--success-color);
+}
+
+.status-tag-success:hover {
+  background: var(--success-color);
+  color: #fff;
+}
+
+.status-tag-error {
+  background: var(--danger-light);
+  color: var(--danger-color);
+}
+
+.status-tag-error:hover {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+.status-tag-warning {
+  background: var(--warning-light);
+  color: var(--warning-color);
+}
+
+.status-tag-warning:hover {
+  background: var(--warning-color);
+  color: #fff;
+}
+
+.status-tag-info {
+  background: var(--primary-light);
+  color: var(--primary-color);
+}
+
+.status-tag-info:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.status-tag-online {
+  background: rgba(0, 180, 42, 0.1);
+  color: var(--success-color);
+}
+
+.status-tag-offline {
+  background: rgba(245, 63, 63, 0.1);
+  color: var(--danger-color);
+}
+
+.status-tag-connecting {
+  background: rgba(255, 125, 0, 0.1);
+  color: var(--warning-color);
+}
+
+/* 状态指示点 */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  margin-right: var(--spacing-1);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.status-dot-green { background: var(--success-color); }
+.status-dot-red { background: var(--danger-color); }
+.status-dot-orange { background: var(--warning-color); }
+.status-dot-blue { background: var(--primary-color); }
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* ========== 表格空状态 ========== */
+.arco-table-empty {
+  padding: var(--spacing-12) var(--spacing-6);
+  text-align: center;
+}
+
+.arco-table-empty-icon {
+  font-size: 48px;
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-4);
+}
+
+.arco-table-empty-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ========== 表格加载状态 ========== */
+.arco-table-loading {
+  padding: var(--spacing-10);
+  text-align: center;
+}
+
+.arco-table-loading .arco-spin {
+  display: inline-flex;
+}
+
+/* ========== 表格分页 ========== */
+.arco-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.arco-pagination-item {
+  min-width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+  font-weight: 500;
+}
+
+.arco-pagination-item:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.arco-pagination-item-active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  box-shadow: var(--shadow-colored);
+}
+
+.arco-pagination-item-active:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 93, 255, 0.4);
+}
+
+/* ========== 表格工具栏 ========== */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-4);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.table-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.table-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* ========== 表格搜索框 ========== */
+.table-search {
+  width: 280px;
+}
+
+.table-search .arco-input-wrapper {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast) ease;
+}
+
+.table-search .arco-input-wrapper:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+/* ========== 表格选择器 ========== */
+.table-select .arco-select-view {
+  border-radius: var(--radius-lg);
+  min-width: 120px;
+}
+
+/* ========== 表格操作按钮组 ========== */
+.table-actions-group {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.table-actions-btn {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  transition: all var(--transition-fast) ease;
+}
+
+.table-actions-btn:hover {
+  transform: translateY(-1px);
+}
+
+.table-actions-btn.danger:hover {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+/* ========== 响应式表格 ========== */
+@media (max-width: 768px) {
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-toolbar-left,
+  .table-toolbar-right {
+    flex-wrap: wrap;
+  }
+
+  .table-search {
+    width: 100%;
+  }
+
+  .arco-pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* ========== 深色模式 ========== */
+[data-theme='dark'] .arco-table {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-table-th {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .arco-table-th:hover {
+  background: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .arco-table-td {
+  border-bottom-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .arco-table-tr.arco-table-tr-striped {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .arco-table-tr.arco-table-tr-striped:hover {
+  background: var(--bg-hover);
+}
+
+[data-theme='dark'] .status-tag-success {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--success-color);
+}
+
+[data-theme='dark'] .status-tag-error {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--danger-color);
+}
+
+[data-theme='dark'] .status-tag-warning {
+  background: rgba(251, 146, 60, 0.15);
+  color: var(--warning-color);
+}
+
+[data-theme='dark'] .status-tag-info {
+  background: rgba(77, 170, 255, 0.15);
+  color: var(--primary-color);
+}
+
+[data-theme='dark'] .table-toolbar {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-pagination {
+  background: var(--bg-secondary);
+  border-top-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-pagination-item {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* ========== 表格固定列阴影 ========== */
+.arco-table-cell-fixed-left,
+.arco-table-cell-fixed-right {
+  position: sticky !important;
+}
+
+.arco-table-cell-fixed-left-last::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05));
+}
+
+.arco-table-cell-fixed-right-first::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.05));
+}

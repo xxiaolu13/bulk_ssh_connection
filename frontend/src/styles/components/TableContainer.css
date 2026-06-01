@@ -1,0 +1,95 @@
+/* 表格容器样式 - 统一现代设计 */
+.table-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all var(--transition-normal) ease;
+}
+
+.table-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.table-card .arco-card-body {
+  padding: 0;
+}
+
+.enhanced-table {
+  border-radius: 0;
+}
+
+/* 服务器页面特定样式 */
+.server-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.server-tabs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.server-tabs .arco-tabs-nav {
+  padding: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: transparent;
+}
+
+.server-tabs .arco-tabs-content {
+  flex: 1;
+}
+
+.server-tabs .arco-tabs-pane {
+  height: 100%;
+}
+
+.servers-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Tab 选中状态 */
+.server-tabs .arco-tabs-tab-active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.server-tabs .arco-tabs-tab-active::after {
+  background-color: var(--primary-color);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .server-tabs .arco-tabs-nav {
+    flex-direction: column;
+  }
+
+  .table-card {
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* 深色主题 */
+[data-theme='dark'] .table-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-tabs .arco-tabs-nav {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-tabs .arco-tabs-tab-active {
+  color: var(--primary-color);
+}
+
+[data-theme='dark'] .server-tabs .arco-tabs-tab-active::after {
+  background-color: var(--primary-color);
+}

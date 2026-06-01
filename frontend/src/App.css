@@ -1,0 +1,152 @@
+/* App 组件样式 */
+
+/* 确保布局占满整个视口 */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* 侧边栏优化 */
+.app-sider {
+  background: linear-gradient(180deg, #0f1225 0%, #1c2140 100%);
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-menu {
+  flex: 1;
+}
+
+.logo-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 20px;
+}
+
+.logo-text {
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Logo 区域增强 */
+.app-logo {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-logo h4 {
+  background: linear-gradient(135deg, #fff 0%, #e8e8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 顶部导航栏增强 */
+.app-header {
+  background: linear-gradient(180deg, #fff 0%, #fafbfc 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 5;
+}
+
+/* 主内容区域优化 */
+.app-content {
+  background: linear-gradient(180deg, #fff 0%, #fafbfc 100%);
+  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+/* 面包屑增强 */
+.arco-breadcrumb {
+  font-size: 14px;
+}
+
+.arco-breadcrumb-item-link {
+  color: var(--color-text-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.arco-breadcrumb-item-link:hover {
+  color: var(--color-text-1);
+}
+
+/* 页面头部 */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-border-1);
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 600;
+  color var(--color-text-1);
+}
+
+/* 过滤栏 */
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: var(--color-fill-2);
+  border-radius: 4px;
+}
+
+/* 模态框表单 */
+.modal-form {
+  padding: 8px 0;
+}
+
+.modal-form .arco-form-item {
+  margin-bottom: 20px;
+}
+
+.modal-form .arco-form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--color-text-3);
+}
+
+.loading-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.loading-text {
+  font-size: 14px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

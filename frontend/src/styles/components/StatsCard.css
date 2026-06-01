@@ -1,0 +1,287 @@
+/**
+ * 统计卡片样式 - 现代化设计
+ */
+
+/* ========== 统计卡片网格 ========== */
+.modern-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+}
+
+/* ========== 现代化统计卡片 ========== */
+.modern-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--(border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-5);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-normal) ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.modern-stat-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--stat-color, var(--primary-color));
+}
+
+.modern-stat-card:hover .stat-card-decoration {
+  opacity: 1;
+}
+
+/* 卡片内部容器 */
+.stat-card-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* 图标容器 */
+.stat-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  background: var(--stat-background, var(--primary-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--stat-color, var(--primary-color));
+  transition: all var(--transition-normal) ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modern-stat-card:hover .stat-icon-wrapper {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 内容区域 */
+.stat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--stat-color, var(--primary-color));
+  line-height: 1;
+  transition: all var(--transition-normal) ease;
+}
+
+.modern-stat-card:hover .stat-value {
+  transform: scale(1.05);
+}
+
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 装饰元素 - 渐变背景 */
+.stat-card-decoration {
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, var(--stat-color, var(--primary-color)) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-slow) ease;
+  pointer-events: none;
+}
+
+/* ========== 旧版统计卡片（向后兼容） ========== */
+.stats-cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 8px 0 24px 0;
+}
+
+.stats-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.stats-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+}
+
+/* 卡片悬浮时的微光效果 */
+.stats-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--stat-color, var(--primary-color)), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-normal) ease;
+}
+
+.stats-card:hover::before {
+  opacity: 1;
+}
+
+.stats-card .arco-card-body {
+  padding: 20px;
+}
+
+.stats-card .arco-statistic {
+  padding: 0;
+}
+
+.stats-card .arco-statistic-title {
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.stat-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-lg);
+  background: var(--stat-light, var(--primary-light));
+  color: var(--stat-color, var(--primary-color));
+  font-size: 16px;
+}
+
+.stats-card .arco-statistic-value {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--stat-color, var(--primary-color));
+  line-height: 1.2;
+}
+
+.stats-card .arco-statistic-value-suffix {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* 统计趋势标签 */
+.stat-trend {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  color: var(--text-tertiary);
+}
+
+.stat-trend.positive {
+  color: var(--success-color);
+}
+
+.stat-trend.negative {
+  color: var(--danger-color);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 1024px) {
+  .modern-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .modern-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-value {
+    font-size: 32px;
+  }
+
+  .stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-cards-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stats-card .arco-card-body {
+    padding: 16px;
+  }
+
+  .stats-card .arco-statistic-value {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-cards-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== 深色模式适配 ========== */
+[data-theme='dark'] .modern-stat-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme='dark'] .modern-stat-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme='dark'] .stat-icon-wrapper {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .stats-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .stats-card .arco-statistic-title {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .stats-card .arco-statistic-value-suffix {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .stat-icon {
+  background: rgba(59, 130, 246, 0.15);
+}

@@ -1,0 +1,287 @@
+/**
+ * 服务器表格和卡片样式
+ */
+
+/* ========== 表格包装器 ========== */
+.server-table-wrapper {
+  padding: var(--spacing-4);
+}
+
+/* ========== 服务器表格 ========== */
+.modern-server-table {
+  background: var(--bg-card);
+  border: none;
+  border-radius: 0;
+}
+
+.modern-server-table .arco-table-thead {
+  background: var(--bg-secondary);
+}
+
+.modern-server-table .arco-table-th {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: var(--spacing-4);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.modern-server-table .arco-table-tr {
+  transition: all var(--transition-fast) ease;
+}
+
+.modern-server-table .arco-table-tr:hover {
+  background: var(--bg-hover);
+  transform: scale(1.002);
+}
+
+.modern-server-table .arco-table-td {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ========== 操作按钮 ========== */
+.action-btn {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all var(--transition-fast) ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn.danger:hover {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+/* ========== 服务器卡片网格 ========== */
+.server-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-5);
+  padding: var(--spacing-5);
+}
+
+/* ========== 服务器卡片 ========== */
+.server-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--transition-normal) ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.server-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+);
+}
+
+/* 卡片头部 */
+.server-card-header {
+  background: var(--bg-secondary);
+  padding: var(--spacing-4) var(--spacing-5);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  position: relative;
+}
+
+.server-card-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--primary-light));
+  opacity: 0.5;
+}
+
+.server-status-indicator {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.server-status-indicator .status-online {
+  color: var(--success-color);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.server-status-indicator .status-offline {
+  color: var(--danger-color);
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.server-card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+/* 卡片内容 */
+.server-card-content {
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.server-card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-3) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.server-card-info:last-child {
+  border-bottom: none;
+}
+
+.server-card-info label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.server-card-info span {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.server-card-info .info-empty {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.server-card-info .info-mono {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+}
+
+/* 卡片操作区 */
+.server-card-actions {
+  padding: var(--spacing-4) var(--spacing-5);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 1024px) {
+  .server-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .server-cards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+  }
+
+  .server-card {
+    border-radius: var(--radius-lg);
+  }
+
+  .server-card-header {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+
+  .server-card-title {
+    font-size: 15px;
+  }
+
+  .server-card-content {
+    padding: var(--spacing-4);
+    gap: var(--spacing-3);
+  }
+
+  .server-card-actions {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+}
+
+/* ========== 深色模式适配 ========== */
+[data-theme='dark'] .modern-server-table {
+  background: var(--bg-card);
+}
+
+[data-theme='dark'] .modern-server-table .arco-table-thead {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .modern-server-table .arco-table-th {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .modern-server-table .arco-table-td {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-card-header {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-card-header::after {
+  background: linear-gradient(90deg, transparent, rgba(77, 170, 255, 0.15));
+}
+
+[data-theme='dark'] .server-card-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .server-card-info {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .server-card-info label {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .server-card-info span {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .server-card-info .info-empty {
+  color: var(--text-tertiary);
+}
+
+[data-theme='dark'] .server-card-actions {
+  background: var(--bg-secondary);
+  border-top-color: var(--border-color);
+}
+
+[data-theme='dark'] .action-btn:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}

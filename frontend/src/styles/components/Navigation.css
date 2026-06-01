@@ -1,0 +1,392 @@
+/**
+ * 导航菜单和侧边栏美化
+ * 现代化、流畅的交互体验
+ */
+
+/* ========== 侧边栏容器 ========== */
+.app-sider {
+  background: var(--gradient-sidebar);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal) ease;
+  border-right: 1px solid var(--sidebar-border);
+}
+
+/* 侧边栏背景装饰 - 现代渐变效果 */
+.app-sider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: var(--sidebar-accent);
+  mask-image: radial-gradient(ellipse at 50% -30%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% -30%, black 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 侧边栏底部装饰 */
+.app-sider::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: var(--sidebar-footer-bg);
+  pointer-events: none;
+}
+
+/* ========== Logo 区域 ========== */
+.app-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-4);
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--sidebar-border);
+  background: var(--sidebar-accent);
+}
+
+.logo-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast) ease;
+}
+
+.logo-content:hover {
+  background: var(--sidebar-hover);
+  transform: translateY(-1px);
+}
+
+.logo-icon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.logo-text {
+  color: var(--sidebar-text-primary);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #fff var(--sidebar-text-primary), #e0e0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========== 导航菜单 ========== */
+.app-menu {
+  flex: 1;
+  padding: var(--spacing-3) var(--spacing-2);
+  background: transparent;
+  border: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 隐藏菜单滚动条但保留功能 */
+.app-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.app-menu::-webkit-scrollbar-thumb {
+  background: var(--sidebar-hover);
+  border-radius: var(--radius-full);
+}
+
+/* 菜单项容器 */
+.app-menu .arco-menu-item,
+.app-menu .arco-menu-inline-header {
+  margin: var(--spacing-1) 0;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-lg);
+  color: var(--sidebar-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast) ease;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 菜单项图标 */
+.menu-icon {
+  font-size: 18px;
+  color: inherit;
+  transition: all var(--transition-fast) ease;
+}
+
+/* 菜单项文字 */
+.menu-label {
+  flex: 1;
+}
+
+/* 菜单项悬停效果 */
+.app-menu .arco-menu-item:hover {
+  background: var(--sidebar-item-hover);
+  color: var(--sidebar-text-primary);
+  transform: translateX(4px);
+}
+
+.app-menu .arco-menu-item:hover .menu-icon {
+  transform: scale(1.1);
+}
+
+/* 菜单项选中状态 - 使用变量 */
+.app-menu .arco-menu-item-selected {
+  background: var(--sidebar-item-selected) !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.app-menu .arco-menu-item-selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: #fff;
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+}
+
+.app-menu .arco-menu-item-selected .menu-icon {
+  color: #fff;
+  animation: iconBounce 0.4s ease;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ========== 侧边栏底部 ========== */
+.app-sider-footer {
+  padding: var(--spacing-4) 0;
+  border-top: 1px solid var(--sidebar-border);
+  text-align: center;
+  background: var(--sidebar-footer-bg);
+}
+
+.version-info {
+  color: var(--sidebar-text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  background: var(--sidebar-hover);
+  display: inline-block;
+  transition: all var(--transition-fast) ease;
+}
+
+.version-info:hover {
+  background: var(--sidebar-item-hover);
+  color: var(--sidebar-text-primary);
+}
+
+/* ========== 顶部导航栏 ========== */
+.app-header {
+  height: 64px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 var(--spacing-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-normal) ease;
+  box-shadow: var(--shadow-xs);
+  position: relative;
+  z-index: 10;
+}
+
+/* 顶部导航栏背景装饰 */
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  opacity: 0.1;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+/* 页面标题 */
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.page-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--primary-color);
+  border-radius: var(--radius-full);
+}
+
+/* ========== 主题切换按钮 ========== */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast) ease;
+  color: var(--text-secondary);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-hover);
+  color: var(--primary-color);
+  transform: rotate(180deg);
+}
+
+/* ========== 用户信息区域 ========== */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+}
+
+.user-info:hover {
+  background: var(--bg-hover);
+}
+
+.user-info .arco-avatar {
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow-colored);
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .app-sider {
+    width: 64px !important;
+  }
+
+  .logo-text,
+  .menu-label,
+  .version-info {
+    display: none;
+  }
+
+  .app-menu {
+    padding: var(--spacing-3);
+  }
+
+  .app-menu .arco-menu-item {
+    padding: var(--spacing-3);
+    justify-content: center;
+  }
+
+  .app-menu .arco-menu-item:hover {
+    transform: translateX(0);
+  }
+
+  .app-menu .arco-menu-item-selected {
+    transform: translateX(0);
+  }
+
+  .app-menu .arco-menu-item-selected::before {
+    display: none;
+  }
+
+  .user-name {
+    display: none;
+  }
+}
+
+/* ========== 菜单动画过渡 ========== */
+.app-menu .arco-menu-pop {
+  animation: menuSlideIn var(--transition-normal) ease-out;
+}
+
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== 深色模式适配 ========== */
+[data-theme='dark'] .app-header {
+  background: var(--bg-card);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .page-title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .user-info:hover {
+  background: var(--bg-hover);
+}
+
+/* ========== 修复暗色模式下的硬编码颜色 ========== */
+[data-theme='dark'] .logo-text {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme='dark'] .version-info {
+  color: rgba(241, 245, 249, 0.7);
+}
+
+[data-theme='dark'] .version-info:hover {
+  color: #f1f5f9;
+}

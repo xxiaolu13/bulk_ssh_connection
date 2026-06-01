@@ -1,0 +1,190 @@
+/**
+ * 布局组件美化
+ * 现代化的布局设计，包含内容区域、容器等
+ */
+
+/* ========== 主布局 ========== */
+.app-main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ========== 主内容区域 ========== */
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-6);
+  background: var(--bg-page);
+  transition: all var(--transition-normal) ease;
+  position: relative;
+}
+
+/* 内容区域背景装饰 */
+.app-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: radial-gradient(ellipse at 50% -50%, var(--primary-lighter), transparent);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ========== 页面容器 ========== */
+.page-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ========== 内容卡片 ========== */
+.content-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal) ease;
+  overflow: hidden;
+}
+
+.content-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.content-card-header {
+  padding: var(--spacing-5);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.content-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.content-card-body {
+  padding: var(--spacing-5);
+}
+
+.content-card-footer {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ========== 分割线 ========== */
+.content-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: var(--spacing-4) 0;
+  border: none;
+}
+
+.content-divider.thin {
+  height: 1px;
+}
+
+.content-divider.thick {
+  height: 2px;
+  background: var(--border-hover);
+}
+
+.content-divider.dashed {
+  border-style: dashed;
+}
+
+/* ========== 空白区 ========== */
+.content-spacer {
+  width: 100%;
+}
+
+.content-spacer-xs { height: var(--spacing-2); }
+.content-spacer-sm { height: var(--spacing-4); }
+.content-spacer-md { height: var(--spacing-6); }
+.content-spacer-lg { height: var(--spacing-8); }
+.content-spacer-xl { height: var(--spacing-10); }
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 1200px) {
+  .page-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: var(--spacing-4);
+  }
+
+  .content-card-header {
+    padding: var(--spacing-4);
+  }
+
+  .content-card-body {
+    padding: var(--spacing-4);
+  }
+
+  .content-card-footer {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-content {
+    padding: var(--spacing-3);
+  }
+
+  .content-card-header {
+    padding: var(--spacing-3);
+  }
+
+  .content-card-body {
+    padding: var(--spacing-3);
+  }
+}
+
+/* ========== 深色模式 ========== */
+[data-theme='dark'] .app-content {
+  background: var(--bg-page);
+}
+
+[data-theme='dark'] .content-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .content-card:hover {
+  border-color: var(--border-hover);
+}
+
+[data-theme='dark'] .content-card-header {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .content-card-footer {
+  background: var(--bg-secondary);
+  border-top-color: var(--border-color);
+}
+
+[data-theme='dark'] .content-divider {
+  background: var(--border-color);
+}
+
+[data-theme='dark'] .content-divider.thick {
+  background: var(--border-hover);
+}

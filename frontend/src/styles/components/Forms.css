@@ -1,0 +1,579 @@
+/**
+ * 表单组件美化
+ * 现代化的表单设计，包含输入框、按钮、验证状态等
+ */
+
+/* ========== 基础表单 ========== */
+.arco-form {
+  font-size: 14px;
+}
+
+.arco-form-item {
+  margin-bottom: var(--spacing-5);
+}
+
+.arco-form-item-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.arco-form-item-label-required-mark {
+  color: var(--danger-color);
+  font-size: 14;
+}
+
+.arco-form-item-label-extra {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-left: var(--spacing-1);
+}
+
+.arco-form-item-message {
+  font-size: 12px;
+  padding: var(--spacing-1) var(--spacing-2);
+  margin-top: var(--spacing-1);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.arco-form-item-message-error {
+  color: var(--danger-color);
+  background: var(--danger-light);
+}
+
+.arco-form-item-message-warning {
+  color: var(--warning-color);
+  background: var(--warning-light);
+}
+
+/* ========== 输入框 ========== */
+.arco-input-wrapper {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+  overflow: hidden;
+}
+
+.arco-input-wrapper:hover {
+  border-color: var(--border-hover);
+}
+
+.arco-input-wrapper-focus,
+.arco-input-wrapper.arco-input-wrapper-focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.arco-input {
+  font-size: 14px;
+  color: var(--text-primary);
+  caret-color: var(--primary-color);
+}
+
+.arco-input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.arco-input-prepend,
+.arco-input-append {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+/* ========== 文本域 ========== */
+.arco-textarea-wrapper {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-textarea-wrapper:hover {
+  border-color: var(--border-hover);
+}
+
+.arco-textarea-wrapper-focus,
+.arco-textarea-wrapper.arco-textarea-wrapper-focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.arco-textarea {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  line-height: 1.6;
+  padding: var(--spacing-3);
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ========== 选择器 ========== */
+.arco-select-view {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-select-view:hover {
+  border-color: var(--border-hover);
+}
+
+.arco-select-view-focus,
+.arco-select-view.arco-select-view-focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.arco-select-dropdown {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-1);
+  max-height: 300px;
+}
+
+.arco-select-option {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  transition: all var(--transition-fast) ease;
+  color: var(--text-primary);
+}
+
+.arco-select-option:hover {
+  background: var(--bg-hover);
+  color: var(--primary-color);
+}
+
+.arco-select-option-active {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* ========== 数字输入框 ========== */
+.arco-input-number-wrapper {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-input-number-wrapper:hover {
+  border-color: var(--border-hover);
+}
+
+.arco-input-number-wrapper-focus,
+.arco-input-number-wrapper.arco-input-number-wrapper-focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.arco-input-number-step-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-input-number-step-btn:hover {
+  background: var(--bg-hover);
+  color: var(--primary-color);
+}
+
+/* ========== 按钮 ========== */
+.arco-btn {
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 500;
+  height: 36px;
+  padding: 0 var(--spacing-4);
+  transition: all var(--transition-fast) ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.arco-btn:hover {
+  transform: translateY(-1px);
+}
+
+.arco-btn:active {
+  transform: translateY(0);
+}
+
+/* 主按钮 */
+.arco-btn-primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(22, 93, 255, 0.2);
+}
+
+.arco-btn-primary:hover {
+  background: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+  box-shadow: 0 4px 12px rgba(22, 93, 255, 0.3);
+}
+
+.arco-btn-primary:active {
+  background: var(--primary-color-active);
+  border-color: var(--primary-color-active);
+}
+
+/* 次要按钮 */
+.arco-btn-secondary {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.arco-btn-secondary:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* 虚线按钮 */
+.arco-btn-dashed {
+  background: transparent;
+  border: 1px dashed var(--border-color);
+  color: var(--text-primary);
+}
+
+.arco-btn-dashed:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* 文本按钮 */
+.arco-btn-text {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-secondary);
+}
+
+.arco-btn-text:hover {
+  background: var(--bg-hover);
+  color: var(--primary-color);
+}
+
+/* 危险按钮 */
+.arco-btn-status-danger {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(245, 63, 63, 0.2);
+}
+
+.arco-btn-status-danger:hover {
+  background: var(--danger-color-hover);
+  border-color: var(--danger-color-hover);
+  box-shadow: 0 4px 12px rgba(245, 63, 63, 0.3);
+}
+
+/* 图标按钮 */
+.arco-btn-icon-only {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+
+.arco-btn-icon-only.arco-btn-primary {
+  width: 36px;
+  height: 36px;
+}
+
+/* 小尺寸按钮 */
+.arco-btn-size-small {
+  height: 28px;
+  padding: 0 var(--spacing-3);
+  font-size: 13px;
+}
+
+.arco-btn-icon-only.arco-btn-size-small {
+  width: 28px;
+  height: 28px;
+}
+
+/* 大尺寸按钮 */
+.arco-btn-size-large {
+  height: 44px;
+  padding: 0 var(--spacing-5);
+  font-size: 16px;
+}
+
+/* ========== 开关 ========== */
+.arco-switch {
+  width: 44px;
+  height: 24px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal) ease;
+}
+
+.arco-switch-checked {
+  background: var(--success-color);
+}
+
+.arco-switch-icon {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal) ease;
+}
+
+.arco-switch:hover {
+  transform: scale(1.05);
+}
+
+/* ========== 复选框 ========== */
+.arco-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 14px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: color var(--transition-fast) ease;
+}
+
+.arco-checkbox:hover {
+  color: var(--primary-color);
+}
+
+.arco-checkbox-icon {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arco-checkbox-checked .arco-checkbox-icon {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.arco-checkbox-icon-icon {
+  color: #fff;
+  font-size: 12px;
+}
+
+.arco-checkbox-indeterminate .arco-checkbox-icon {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* ========== 单选框 ========== */
+.arco-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 14px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: color var(--transition-fast) ease;
+}
+
+.arco-radio:hover {
+  color: var(--primary-color);
+}
+
+.arco-radio-icon {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  transition: all var(--transition-fast) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arco-radio-checked .arco-radio-icon {
+  border-color: var(--primary-color);
+}
+
+.arco-radio-icon-icon {
+  width: 10px;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: var(--radius-full);
+}
+
+/* ========== 模态框 ========== */
+.arco-modal {
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.arco-modal-wrapper {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.arco-modal-header {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.arco-modal-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.arco-modal-close-icon {
+  color: var(--text-tertiary);
+  font-size: 20px;
+  transition: all var(--transition-fast) ease;
+}
+
+.arco-modal-close-icon:hover {
+  color: var(--danger-color);
+  transform: rotate(90deg);
+}
+
+.arco-modal-body {
+  padding: var(--spacing-5);
+  background: var(--bg-card);
+}
+
+.arco-modal-footer {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+}
+
+/* ========== 表单布局 ========== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-4);
+}
+
+.form-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ========== 表单提示 ========== */
+.form-tip {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--info-light);
+  border: 1px solid var(--info-color);
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-2);
+}
+
+.form-tip-icon {
+  color: var(--info-color);
+  font-size: 16px;
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .form-grid-2,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .arco-form-item {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .arco-modal {
+    margin: var(--spacing-2);
+    max-height: calc(100vh - var(--spacing-4));
+  }
+}
+
+/* ========== 深色模式 ========== */
+[data-theme='dark'] .arco-input-wrapper {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-input-wrapper:hover {
+  border-color: var(--border-hover);
+}
+
+[data-theme='dark'] .arco-textarea-wrapper {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-select-view {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-select-dropdown {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-input-number-wrapper {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-checkbox-icon {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-radio-icon {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-modal {
+  background: var(--bg-card);
+}
+
+[data-theme='dark'] .arco-modal-header {
+  background: var(--bg-card);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .arco-modal-body {
+  background: var(--bg-card);
+}
+
+[data-theme='dark'] .arco-modal-footer {
+  background: var(--bg-card);
+  border-top-color: var(--border-color);
+}
